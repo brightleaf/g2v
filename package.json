@@ -9,10 +9,9 @@
     "./bin/index.js"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": ""
+    "preversion": "echo \"No preversion task\" && exit 0",
+    "postversion": "npm publish --access=public",
+    "postpublish": "git push origin --all --follow-tags && npx publisher"
   },
   "homepage": "https://brightleaf.github.io/g2v",
   "author": "Brightleaf JS<kevin.isom@gmail.com>",
@@ -30,5 +29,8 @@
     "commander": "^2.20.0",
     "fluent-ffmpeg": "^2.1.2",
     "ora": "^3.4.0"
+  },
+  "devDependencies": {
+    "@kev_nz/publisher": "^4.0.1"
   }
 }

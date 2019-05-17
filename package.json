@@ -1,11 +1,13 @@
 {
   "name": "@brightleaf/g2v",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Convert an animated gif to an mp4 video",
   "bin": {
     "g2v": "./bin/index.js"
   },
-  "files": ["./bin/index.js"],
+  "files": [
+    "./bin/index.js"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

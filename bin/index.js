@@ -2,11 +2,10 @@
 
 const program = require('commander')
 const ora = require('ora')
-const ffmpeg = require('fluent-ffmpeg')
+const Ffmpeg = require('fluent-ffmpeg')
 const ffmpegStatic = require('ffmpeg-static')
 const path = require('path')
 const asciify = require('asciify')
-const commandExists = require('command-exists').sync
 
 const ascii = text => new Promise(resolve => {
   return asciify(text, { font:'larry3d' },  (err, output) => {
@@ -14,10 +13,9 @@ const ascii = text => new Promise(resolve => {
   })
 })
 
-ffmpeg.setFfmpegPath(ffmpegStatic.path)
 
 program
-  .version('1.0.0', '-v, --version')
+  .version('2.0.1', '-v, --version')
   .arguments('[gif]')
   .description('Convert a gif to an mp4 file')
   .action(async (gif) => {
@@ -25,16 +23,14 @@ program
     console.info(header)
     const appname = await ascii('   g2v')
     console.info(appname)
-    if (!commandExists('ffmpeg')) {
-      console.warn('FFMPEG is not installed')
-      console.warn('Please install FFMPEG and try again')
-      process.exit(0)
-    }
     const gifFile = path.join(process.cwd(), gif)
     const vid = gifFile.replace('.gif', '.mp4')
     const spinner = ora('Converting gif').start()
+    const ffmpeg = new Ffmpeg(gifFile)
 
-    ffmpeg(gifFile)
+    ffmpeg.setFfmpegPath(ffmpegStatic.path)
+
+    ffmpeg
       .inputFormat('gif')
       .outputOptions(['-pix_fmt yuv420p', '-movflags frag_keyframe+empty_moov', '-movflags +faststart'])
       .toFormat('mp4')

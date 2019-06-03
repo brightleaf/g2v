@@ -3,6 +3,7 @@
 const program = require('commander')
 const ora = require('ora')
 const ffmpeg = require('fluent-ffmpeg')
+const ffmpegStatic = require('ffmpeg-static')
 const path = require('path')
 const asciify = require('asciify')
 const commandExists = require('command-exists').sync
@@ -12,6 +13,8 @@ const ascii = text => new Promise(resolve => {
     return resolve(output)
   })
 })
+
+ffmpeg.setFfmpegPath(ffmpegStatic.path)
 
 program
   .version('1.0.0', '-v, --version')
